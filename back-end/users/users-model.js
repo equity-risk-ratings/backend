@@ -26,3 +26,11 @@ async function add(user) {
 function findById(id) {
   return db('users').where({ id }).first();
 }
+
+async function remove(id) {
+  const removed = await findById(id);
+
+  await db('users').where({ id }).del();
+
+  return removed;
+}
