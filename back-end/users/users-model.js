@@ -12,3 +12,7 @@ module.exports = {
 function find() {
   return db('users').select('id', 'firstName', 'lastName', 'email', 'password');
 }
+
+function findBy(filter) {
+  return db('users').where(filter);
+}
