@@ -108,8 +108,40 @@ class SignUpForm extends Component {
                 onChange={this.handleChange}
               />
             </div>
+
+            <div className="FormField">
+              <label className='FormField__CheckboxLabel'>
+                <input
+                  className='FormField__Checkbox'
+                  type='checkbox'
+                  name='hasAgreed'
+                  value={this.state.hasAgreed}
+                  onChange={this.handleChange}
+                />
+                I agree all statements in
+                <a
+                  href=''
+                  className='FormField__TermsLink'
+                >
+                  terms of service
+                </a>
+              </label>
+            </div>
+
+            <div className='FormField'>
+              <button className='FormField__Button'>
+                Sign Up
+              </button>
+              <Link to='/sign-in'
+                className='FormField__Link'
+              >
+                Already have an account?
+              </Link>
+            </div>
         </form>
       </div>
-    )
-  }
-}
+    );
+  };
+};
+
+export default SignUpForm;
