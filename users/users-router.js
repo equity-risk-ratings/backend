@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secrets');
-const Users = require('./users-model.js.js');
+const Users = require('./users-model.js');
 
 
 
@@ -28,6 +28,7 @@ router.post('/register', (req, res) => {
       res.status(201).json(saved);
     })
     .catch(error => {
+      console.log(error);
       res.status(500).json(error);
     });
 });
