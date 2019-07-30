@@ -72,7 +72,7 @@ class SignInForm extends Component {
 
           <div className='FormField'>
             <button
-              className='FormField__Button'
+              className='FormField__Button 1a'
             >
               Sign In
             </button>
