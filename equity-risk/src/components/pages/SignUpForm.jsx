@@ -120,7 +120,7 @@ class SignUpForm extends Component {
                 />
                 I agree all statements in
                 <a
-                  href=''
+                  href='/terms-conditions'
                   className='FormField__TermsLink'
                 >
                   terms of service

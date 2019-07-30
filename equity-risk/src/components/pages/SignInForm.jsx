@@ -34,7 +34,9 @@ class SignInForm extends Component {
   render() {
     return (
       <div className="FormWrapper">
-        <form onSubmit={this.handleSubmit} className='FormsFields' >
+        <form
+          onSubmit={this.handleSubmit}
+          className='FormFields' >
           <div className='FormField'>
             <label
               className='FormField__Label'
