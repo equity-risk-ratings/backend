@@ -1,15 +1,44 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Route, NavLink, Link } from 'react-router-dom';
 import SignUpForm from './components/pages/SignUpForm';
 import SignInForm from './components/pages/SignInForm';
 
 import './App.css';
 
+import axios from 'axios';
+import Users from './components/Users';
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: [],
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get('http://localhost:7777/api/users')
+      .then(response => {
+        this.setState({ users: response.data })
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
   render() {
     return (
       <div className='App'>
-        <div className='App__Aside'></div>
+        <div className='App__Aside'>
+          <h2>Equity Risk API</h2>
+          <p>Welcome to the Equity Risk Ratings API</p>
+          <Link to='/users'>Users List</Link>
+          <Route 
+            path='/users' 
+            render={(props) => <Users {...props} users={this.state.users} />}>
+          </Route>
+        </div>
         <div className='App__Form'>
           <div className='PageSwitcher'>
             <NavLink
@@ -41,11 +70,19 @@ class App extends Component {
             </NavLink>
             
           </div>
-          <Route exact path='/' component={SignUpForm}></Route>
+          <Route 
+            exact path='/' 
+            render={(props) => <SignUpForm {...props} users={this.state.users} />}>
+          </Route>
+
           <Route path='/sign-in' component={SignInForm}></Route>
+          {/* <Route 
+            path='/users' 
+            render={(props) => <Users {...props} users={this.state.users} />}>
+          </Route> */}
         </div>
       </div>
-    )
+    );
   }
 }
 
