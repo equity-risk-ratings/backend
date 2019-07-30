@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function find() {
-  return db('users').select('id', 'firstName', 'lastName', 'email', 'password');
+  return db('users').select('id', 'firstName', 'lastName', 'email');
 }
 
 function findBy(filter) {
