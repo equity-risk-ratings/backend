@@ -46,8 +46,19 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-
-
-
+router.put('/:id', async (req, res) => {
+  try {
+    const user = await Users.update(req.params.id, req.body);
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'The user could not be found' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error editing the user'
+    });
+  }
+});
 
 module.exports = router;
