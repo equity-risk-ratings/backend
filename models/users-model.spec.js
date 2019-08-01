@@ -1,5 +1,5 @@
 const db = require('../data/dbConfig.js');
-const Users = require('./users-model.js');
+const Users = require('../models/users-model.js/index.js');
 
 describe('the users model', () => {
 
