@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const Users = require('../models/users-model.js');
 
-router.get('/', async (req, res) => {
+const restricted = require('../middlewares/restricted-middleware.js');
+
+router.get('/', restricted, async (req, res) => {
   try {
     const users = await Users.find();
     res.status(200).json(users);
@@ -13,7 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', restricted, async (req, res) => {
   try {
     const user = await Users.findById(req.params.id);
 
