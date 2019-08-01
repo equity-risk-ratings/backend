@@ -3,6 +3,7 @@ API DOCUMENTATIONS:
 ==================== LOGIN && REGISTER ENDPOINTS START HERE =======================
 
 Register a user
+url: https://equity-risks.herokuapp.com/
 method url: /api/auth/register
 
 http method: [POST]
@@ -41,7 +42,7 @@ Example
 Response
 200 (ok)
 {
-    message: 'Logged In! Your ID is 5',
+    message: 'Welcome Elan',
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJlbWFpbCI6ImJwb2x0bEBnbWFpbC5jb20iLCJpYXQiOjE1NTU5NzAyMjMsImV4cCI6MTU1NjA1NjYyM30.lWi9hhalGt2ftr4Ju_jP12dCavZgXAMwABGYPzltwr8'
 }
 401 (Unauthorized)
@@ -97,7 +98,7 @@ Example response
 =======================================================================================
 
 get logged in user's information
-method url: /api/users/andiviudal
+method url: /api/users/:id
 
 http method: [GET]
 
@@ -118,36 +119,7 @@ Example response
 ]
 ===================================================================================
 
-get logged in user's information, with their jokes included
-method url: /api/users/userWithJokes
 
-http method: [GET]
-
-Headers
-name	type	required	description
-authorization	String	Yes	token to Authorize user
-Response
-200 (ok)
-Example response
-[
-    {
-        "id": 5,
-        "email": "elan@gmail.com",
-        "firstName": "Elan",
-        "lastName": "Riznis",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG",
-        jokes: [
-            {
-                id: 1,
-                author: 'Elan Riznis',
-                joke: 'Kimberky ain't funny!',
-                likes: 0,
-                user_id: 5
-            }
-        ]
-    },
-]
-Keep in mind... The jokes property in this endpoint is an ARRAY!!!!!! It returns the user, and the jokes that BELONG to that user!
 
 ============================================================================================================
 
@@ -183,48 +155,10 @@ Example Response
   {
   message: 'User with an ID of 4 does NOT exist'
   }
-WATCH OUT!!!! I made it so that you don't need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
+WATCH OUT!!!! I made it so that you need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
 
 ========================================================================================================================
 
-Edit a User Account using PATCH. You do NOT need to Match IDs
-method url: /api/users/updatePUT
-
-http method: [PATCH]
-
-Headers
-name	type	required	description
-authorization	String	Yes	token to Authorize user
-Body
-name	type	required	description
-name	String	yes	
-lastName	String	yes	
-password	String	yes	
-email	String	yes	
-Example
-{
-        "email": "elan@gmail.com",
-        "firstName": "Elan",
-        "lastName": "Riznis",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG",
-}
-Response
-200 (ok)
-Example Response
-{
-    "message": "Your Profile has been sucessfully updated!"
-}
-404 (Not Found)
-Example Response
-  {
-  message: 'User with an ID of 4 does NOT exist'
-  }
-WATCH OUT!!!! I made it so that you don't need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
-
-=================================================================================================================================
-
-Delete an Account (AKA user). You do NOT need to Match IDs
-method url: /api/users/delete
 
 http method: [DELETE]
 
@@ -238,5 +172,4 @@ Example Response
     "message": "User has been Deleted"
 }
 404 (not found)
-WATCH OUT!!!! I made it so that you don't need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
-
+WATCH OUT!!!! I made it so that you need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
