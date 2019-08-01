@@ -18,7 +18,7 @@ describe('server.js', () => {
   describe('GET /api/user', () => {
     afterEach(async () => {
       await db('users').truncate();
-    })
+    });
 
     it('should hit endpoint', async () => {
       const res = await request(server).get('/api/users');

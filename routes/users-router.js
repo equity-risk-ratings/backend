@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const Users = require('../models/users-model.js');
 
-
-
 router.get('/', async (req, res) => {
   try {
     const users = await Users.find();
