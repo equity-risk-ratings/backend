@@ -5,13 +5,11 @@ exports.up = function(knex) {
 
     table
       .string('firstName', 28)
-      .notNullable()
-      .unique();
+      .notNullable();
 
     table
       .string('lastName', 28)
-      .notNullable()
-      .unique();
+      .notNullable();
 
     table
       .string('email', 128)

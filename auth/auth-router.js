@@ -2,21 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secrets');
-const Users = require('./users-model.js');
-
-
-
-router.get('/', async (req, res) => {
-  try {
-    const users = await Users.find();
-    res.status(200).json(users);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: 'Error retrieving the users',
-    });
-  }
-});
+const Users = require('../models/users-model.js');
 
 router.post('/register', (req, res) => {
   let user = req.body;
