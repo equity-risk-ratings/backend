@@ -31,5 +31,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const count = await Users.remove(req.params.id);
+    if (count > 0) {
+      res.status(200).json({ message: 'The user has been destroyed' });
+    } else {
+      res.status(404).json({ message: 'The user could not be found' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error removing user'
+    });
+  }
+});
+
+
+
+
 
 module.exports = router;
