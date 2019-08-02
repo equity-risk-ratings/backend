@@ -216,3 +216,6 @@ Example Response
 }
 404 (not found)
 WATCH OUT!!!! I made it so that you need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
+
+* http method: [GET]
+method url: /api/companies
