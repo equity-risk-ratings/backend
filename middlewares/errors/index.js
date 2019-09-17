@@ -1,6 +1,6 @@
 const badRequest = require('./badRequest');
 const notFound = require('./notFound');
-const resourceConflict = require('./resourceConflict');
+const resourceConflict = require('./resourceConflicts');
 const forbidden = require('./forbidden');
 const unauthorized = require('./unauthorized');
 const genericError = require('./genericError');
