@@ -1,7 +1,7 @@
 const { BAD_REQUEST } = require('../../helpers/error');
 
 const badRequest = (err, req, res, next) => {
-  if(err.status !== BAD_REQUEST) {
+  if (err.status !== BAD_REQUEST) {
     return next(err);
   }
 
@@ -17,12 +17,12 @@ const badRequest = (err, req, res, next) => {
       ],
     });
   }
-  
+
   return res.status(BAD_REQUEST).json({
     ok: false,
     errors: {
       message: err.message || 'Bad Request',
-      status:err.status,
+      status: err.status,
     },
   });
 };
