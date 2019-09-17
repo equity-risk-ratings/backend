@@ -9,17 +9,16 @@ const { FORBIDDEN } = require('../../helpers/error');
  * @param {object} err
  */
 
- const forbidden = (err, req, res, next) => {
-   if (err.status !== FORBIDDEN) {
-     return next(err);
-   }
+const forbidden = (err, req, res, next) => {
+  if (err.status !== FORBIDDEN) {
+    return next(err);
+  }
 
-   return res.status(FORBIDDEN).json({
-     ok: false,
-     message: err.message || 'Forbidden',
-     errors: [err],
-   });
- };
+  return res.status(FORBIDDEN).json({
+    ok: false,
+    message: err.message || 'Forbidden',
+    errors: [err],
+  });
+};
 
- module.exports = forbidden;
- 
+module.exports = forbidden;
