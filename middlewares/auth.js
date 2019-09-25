@@ -1,30 +1,18 @@
 const jwt = require('jsonwebtoken');
 
-/**
- * @param {*} req
- * @param {*} res
- * @param {*} next
- * @returns
- * @description verifies token
- */
+const jwtKey = process.env.JWT_SECRET;
 
-const verifyToken = async (req, res, next) => {
-  const token = req.headers.authorization;
-  try {
-    if (token) {
-      const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-      req.username = decoded.username;
-      req.isAdmin = decoded.isAdmin;
-      return next();
-    }
-    return res.status(401).json({
-      message: 'No token provided, must be set on Authorization Header'
-    });
-  } catch (error) {
-    return res
-      .status(401)
-      .json({ message: 'Unable to verify token, Pls provide a valid token' });
-  }
+const generateToken = (user) => {
+  const payload = {
+    subject: user.id,
+    username: user.id,
+    email: user.email
+  };
+  const options = {
+    expiresIn: '7d'
+  };
+  const token = jwt.sign(payload, jwtKey, options);
+  return token;
 };
 
-module.exports = verifyToken;
+module.exports = generateToken;
