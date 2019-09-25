@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: 'sqlite3',
     useNullAsDefault: true,
     connection: process.env.DB_CONNECTION_TEST,
     pool: {
