@@ -1,7 +1,5 @@
-const bcrypt = require('bcryptjs');
-const { models } = require('../../models');
-const { createError, GENERIC_ERROR } = require('../../helpers/error');
-
+const bcrypt = require("bcryptjs");
+const models = require("../../models");
 /**
  * @description Create new user
  *
@@ -16,21 +14,17 @@ const register = async (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
 
     userDetails.password = bcrypt.hashSync(userDetails.password, salt);
-    userDetails.userName = userDetails.userName.toLowerCase();
-
     const user = await models.User.add(userDetails);
 
     return res.status(201).json({
       success: true,
-      message: 'New user created',
+      message: "New user created",
       user
     });
   } catch (err) {
-    return next(createError({
-      message: 'Internal Server Error',
-      status: GENERIC_ERROR
-    })
-    );
+    return res.status(500).json({
+      message: "Could not create a new user"
+    });
   }
 };
 

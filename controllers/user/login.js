@@ -1,12 +1,6 @@
-const bcrypt = require('bcryptjs');
-const { models } = require('../../models');
-const generateToken = require('../../helpers/generateToken');
-
-const {
-  createError,
-  NOT_FOUND,
-  GENERIC_ERROR
-} = require('../../helpers/error');
+const bcrypt = require("bcryptjs");
+const models = require("../../models");
+const generateToken = require("../../middlewares/generateToken");
 
 /**
  * @description Login user
@@ -18,48 +12,31 @@ const {
 
 const login = async (req, res, next) => {
   try {
-    let { username } = req.body;
     const { password } = req.body;
-    username = username.toLowerCase();
-
-    const userExist = await models.User.findBy({ username });
-
-    if (userExist) {
-      const compare = bcrypt.compareSync(password, userExist.password);
-      const user = await models.User.findBy({ username }).select([
-        '-password'
-      ]);
-
-      if (compare) {
-        const token = await generateToken(userExist);
-
-        return res.status(200).json({
+    const { email } = req.body;
+    const user = await models.User.findBy({ email });
+    if (!password || !email) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing credentials"
+      });
+    } else {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = generateToken(user);
+        return res.status(201).json({
           success: true,
-          message: 'User is logged in',
+          message: "User is logged in",
           user,
           token
         });
       }
-      return next(
-        createError({
-          message: 'Invalid username or passowrd',
-          status: NOT_FOUND
-        })
-      );
     }
-    return next(
-      createError({
-        message: 'User does not exist',
-        status: NOT_FOUND
-      })
-    );
   } catch (err) {
-    return next(
-      createError({
-        message: 'Could not create a new user',
-        status: GENERIC_ERROR
-      })
-    );
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      err
+    });
   }
 };
 
