@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node start.js",
     "dev": "cross-env NODE_ENV=development nodemon start.js",
-    "test": "cross-env NODE_ENV=test nyc mocha --timeout 10000 tests/*.js --exit",
+    "test": "cross-env NODE_ENV=test nyc jest --verbose",
+    "migrate:test": "cross-env NODE_ENV=test knex migrate:latest",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "coverage": "DB_ENV=testing nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
   },
