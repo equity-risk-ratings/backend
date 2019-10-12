@@ -1,45 +1,42 @@
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: "sqlite3",
     useNullAsDefault: true,
-    connection: process.env.DB_CONNECTION_TEST,
-    pool: {
-      min: 2,
-      max: 10
+    connection: {
+      filename: "./data/equity.db3"
     },
     migrations: {
-      directory: './data/migrations',
-      tableName: 'knex_migrations'
+      directory: "./data/migrations",
+      tableName: "knex_migrations"
     },
     seeds: {
-      directory: './data/seeds',
-    },
+      directory: "./data/seeds"
+    }
   },
-  testing: {
-    client: 'postgresql',
-    connection: process.env.DB_CONNECTION_TEST,
+  staging: {
+    client: "sqlite3",
+    useNullAsDefault: true,
+    connection: {
+      filename: "./data/equity-test.db3"
+    },
     migrations: {
-      directory: './data/migrations',
-      tableName: 'knex_migrations'
+      directory: "./data/migrations",
+      tableName: "knex_migrations"
     },
     seeds: {
-      directory: './data/seeds',
-    },
+      directory: "./data/seeds"
+    }
   },
   production: {
-    client: 'postgrsql',
-    connection: process.env.DB_CONNECTION,
-    pool: {
-      min: 2,
-      max: 10
-    },
+    client: "pg",
+    connection: process.env.DB_CONNECTION_DEV,
     migrations: {
-      directory: './data/migrations'
+      directory: "./data/migrations"
     },
     seeds: {
-      directory: './data/seeds'
+      directory: "./data/seeds"
     }
   }
 };
