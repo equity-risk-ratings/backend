@@ -1,221 +1,162 @@
-# EQUITY RISK RATINGS BACKEND
+[![Build Status]()]()
+[![Coverage Status]()]()
+[![Maintainability]()]()
+[![Test Coverage]()]()
 
-## OVERVIEW
-Our project is to ingest data on publicly traded equities and assign them historically validated risk ratings, which dynamically update based on market conditions. Our goal is to start with a small set of 25-50 companies and eventually cover all equities traded on US exchanges.
+# API Documentation
 
-## BACK END DESCRIPTION
-Build a Web API with signup and sign in endpoint.
+**You can view the deployed (Heroku) backend here:**
 
-Add data persistence with a Postgres RDBMS
+**[Production Deployment]()** <br/>
+**[Staging Deployment]()**
 
-## GOALS
-* Assign equities historically validated risk ratings based on macroeconomic factors.
-* Target 25-50 companies for now
+[![Run in Postman](https://run.pstmn.io/button.svg)]()
 
-## TEAM MEMBERS
-* Shola Ayeni - Back End (Node)
-* Hira Shahid - Data Science
-* Ben Griffin - User Interface
-* John Schneider - Front End
-* Gregory L Jordan Sr - Front End
-* Brandon Desselle - Front End
-* Dwight Churchill - Data Science
-* Damerei Jha - Data Science
-* Ben Allen - Front End
+## Getting started
 
-## FEATURES
-* Able to signup and sign in
-* Dynamically display trading information of companies on cards
-* Able to query a database
+To get this project up and running locally:
 
-## FRAMEWORKS/LIBRARIES
-* "bcryptjs": "^2.4.3",
-* "cors": "^2.8.5",
-* "dotenv": "^8.0.0",
-* "express": "^4.17.1",
-* "express-session": "^1.16.2",
-* "helmet": "^3.20.0",
-* "jsonwebtoken": "^8.5.1",
-* "knex": "^0.19.1",
-* "pg": "^7.12.0",
-* "sqlite3": "^4.0.9"
-* "cross-env": "^5.2.0",
-* "eslint": "^6.1.0",
-* "jest": "^24.8.0",
-* "nodemon": "^1.19.1",
-* "supertest": "^4.0.2"
+1. Clone this repo
+2. Run `npm install` to install all of the required dependencies.
 
-# API DOCUMENTATIONS:
+3. Create a `.env` file in the root of the project with the following environment variables:
 
-## ==================== LOGIN && REGISTER ENDPOINTS START HERE =======================
+```
+JWT_SECRET='Code is easy, people are hard'
+DB_CONNECTION_DEV=postgresql://postgres:1027@localhost/equity-risk-dev
+```
 
-### Register a user
-url: https://equity-risks.herokuapp.com/
-method url: /api/auth/register
+4. `npm run dev` to start the local server
+5. `npm test` to start server using testing environment
 
-* http method: [POST]
+## Backend Frameworks
 
-Body
-name	type	required	description
-firstName	String	Yes	
-lastName	String	Yes	
-password	String	Yes	
-email	String	Yes	Must be unique/ Must include @ symbol
-Example
+**Our rationale in choosing the frameworks we used:**
+
+### Express
+
+- We agreed to use Express as it is a familiar web server framework to what we knew that is extremely easy to use.
+- It is modular and has great authentication, cookies, and sessions libraries.
+
+### NodeJS
+
+- Excellent third-party library support through NPM
+- It has a large and robust open-source community and great support on Stack Overflow and other platforms for trouble-shooting.
+
+
+
+## Endpoints
+
+**[View API Reference Here]()**
+
+# Data Model
+
+
+#### Users
+
+User types (Staff/Admin)
+
+```js
 {
-    firstName: 'Elan',
-    lastName: 'Riznis',
-    email: 'elan@gmail.com',
-    password: 'pass'
+  id: increments
+  firstName: STRING,
+  lastName: STRING,
+  email: STRING,
+  password: STRING,
+  role: STRING,
 }
-Response
-201 (created)
-=========================================================================
+```
 
-* Login a user
-method url: /api/auth/login
+#### Companies
 
-* http method: [POST]
-
-Body
-name	type	required	description
-email	String	Yes	must be registered email
-password	String	Yes	
-Example
-  {
-    email: 'elan@gmail.com',
-    password: 'pass',
-  }
-Response
-200 (ok)
+```js
 {
-    message: 'Welcome Elan',
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJlbWFpbCI6ImJwb2x0bEBnbWFpbC5jb20iLCJpYXQiOjE1NTU5NzAyMjMsImV4cCI6MTU1NjA1NjYyM30.lWi9hhalGt2ftr4Ju_jP12dCavZgXAMwABGYPzltwr8'
+  id: increments,
+  company: STRING,
+  previous_closing_price: FLOAT,
+  opening_price: FLOAT,
+  high: FLOAT,
+  low: FLOAT,
+  close: FLOAT,
+  change: FLOAT,
+  trades: INTEGER,
+  volume: INTEGER,
+  value: INTEGER
+
 }
-401 (Unauthorized)
-Example response
-{ 
-message: "Please Provide Correct Credentials"
-}
-## =========================== USERS ENDPOINTS START HERE ===========================
+```
 
-======================================================================
+## Actions
 
-* get ALL the users information
-method url: /api/users/all
+**[View DB Actions Here](http://knexjs.org/#Builder)**
 
-* http method: [GET]
+## Environment Variables
 
-* Headers
-name	type	required	description
-authorization	String	Yes	token to Authorize user
-Response
-200 (ok)
-Example response
-[
-    {
-        "id": 5,
-        "email": "elan@gmail.com",
-        "firstName": "Elan",
-        "lastName": "Riznis",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG"
-    },
-    {
-        "id": 6,
-        "email": "kimberky@gmail.com",
-        "firstName": "Kimberly",
-        "lastName": "Swinton",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG"
-    },
-    {
-        "id": 7,
-        "email": "Stacy@gmail.com",
-        "firstName": "Stacy",
-        "lastName": "Williams",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG"
-    },
-    {
-        "id": 8,
-        "email": "scott@gmail.com",
-        "firstName": "Scott",
-        "lastName": "Prins",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG"
-    }
-]
-=======================================================================================
+In order for the app to function correctly, the user must set up their own environment variables.
 
-* get logged in user's information
-method url: /api/users/:id
+Create a `.env` file that includes the following:
 
-* http method: [GET]
+- **DB_CONNECTION_DEV** - URL for Postgres connection string in a development/production environment.
 
-* Headers
-name	type	required	description
-authorization	String	Yes	token to Authorize user
-Response
-200 (ok)
-Example response
-[
-    {
-        "id": 5,
-        "email": "elan@gmail.com",
-        "firstName": "Elan",
-        "lastName": "Riznis",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG"
-    },
-]
+* **NODE_ENV** - for setting application environment. Set to `development` by default. Should be set to `production` when in a staging or production environment.
+
+- **JWT_SECRET** - for signing JSON web tokens. You can generate this by using a python shell and running:
 
 
-* Edit a User Account using PUT. You do NOT need to Match IDs
-method url: /api/users/updatePUT
+## Testing
 
-* http method: [PUT]
+Tests are setup as independently as possible (they do not rely on other tests to pass)
 
-* Headers
-name	type	required	description
-authorization	String	Yes	token to Authorize user
-* Body
-name	type	required	description
-name	String	yes	
-lastName	String	yes	
-password	String	yes	
-email	String	yes	
-Example
-{
-        "email": "elan@gmail.com",
-        "firstName": "Elan",
-        "lastName": "Riznis",
-        "password": "$2a$04$FgiiacNirmVECdixfj8xau8rhnRAML6OfLPCPN1UCiq3xKO9m46UG",
-}
-Response
-200 (ok)
-Example Response
-{
-    "message": "Your Profile has been sucessfully updated!"
-}
-404 (Not Found)
-Example Response
-  {
-  message: 'User with an ID of 4 does NOT exist'
-  }
-WATCH OUT!!!! I made it so that you need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
+Before each test, all tables in the database are deleted and new seed documents are entered.
+After all tests are done, tables are deleted and then dropped.
 
-========================================================================================================================
+To run the tests when developing, run:
 
+```
+npm run dev-test
+```
 
-* http method: [DELETE]
+It will run tests in "watch" mode and stops running tests on first failed test (`-b`).
 
-* Headers
-name	type	required	description
-authorization	String	Yes	token to Authorize user
-Response
-200 (ok)
-Example Response
-{
-    "message": "User has been Deleted"
-}
-404 (not found)
-WATCH OUT!!!! I made it so that you need to match the ID to edit an user, so BE CAREFUL when creating your AXIOS call!!!!!
+To run tests as in CI and with coverage, run:
 
-* http method: [GET]
-method url: /api/companies
+```
+npm run test
+```
+
+## Contributing
+
+### Issue/Bug Request
+
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
+
+### Feature Requests
+
+We would love to hear from you about new features which would improve this app and further the aims of our project. Please provide as much detail and information as possible to show us why you think your new feature should be implemented.
+
+### Pull Requests
+
+If you have developed a patch, bug fix, or new feature that would improve this app, please submit a pull request. It is best to communicate your ideas with the developers first before investing a great deal of time into a pull request to ensure that it will mesh smoothly with the project.
+
+Remember that this project is licensed under the MIT license, and by submitting a pull request, you agree that your work will be, too.
+
+#### Pull Request Guidelines
+
+- Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+- Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
+- Ensure that your code conforms to our existing code conventions and test coverage.
+- Include the relevant issue number, if applicable.
+- You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+
+### Attribution
+
+These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
+
+## Documentation
+
+See [Frontend Documentation](https://github.com/tieme-ndo/frontend/blob/master/README.md) for details on the fronend of our project.

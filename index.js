@@ -1,9 +1,28 @@
 require('dotenv').config();
+const express = require('express');
+const logger = require('morgan');
+const helmet = require('helmet');
+const cors = require('cors');
+const router = require('./routes');
 
-const server = require('./api/server.js');
+const app = express();
 
-const port = process.env.PORT;
+app.use(express.json());
+app.use(cors());
+app.use(logger('dev'));
+app.use(helmet());
 
-server.listen(port, () => {
-  console.log(`\n>>> Magic Happening on http://localhost:${port} <<< \n`);
-});
+app.get('/', (req, res) => res.status(200).json({
+  success: true,
+  message: 'API is alive...'
+}));
+
+app.use('/api/v1', router);
+
+// Handle invalid request
+app.all('*', (req, res) => res.status(400).json({
+  success: false,
+  message: 'Route does not exist ....'
+}));
+
+module.exports = app;
