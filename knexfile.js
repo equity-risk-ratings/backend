@@ -30,8 +30,13 @@ module.exports = {
     }
   },
   production: {
-    client: "pg",
-    connection: process.env.DB_CONNECTION_DEV,
+    client: "postgresql",
+    connection: {
+      database: "d7a2j7e1etksmm",
+      user: "kdcwochqjygxfm",
+      password:
+        "b1809b41126ad7b0fd7e090d452546c08369ba041e8178d628518d9f2b983731"
+    },
     migrations: {
       directory: "./data/migrations"
     },
