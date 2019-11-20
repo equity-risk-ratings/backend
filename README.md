@@ -1,14 +1,9 @@
-[![Build Status]()]()
-[![Coverage Status]()]()
-[![Maintainability]()]()
-[![Test Coverage]()]()
-
 # API Documentation
 
 **You can view the deployed (Heroku) backend here:**
 
-**[Production Deployment]()** <br/>
-**[Staging Deployment]()**
+**[Production Deployment](https://equityrisk.herokuapp.com/)** <br/>
+
 
 [![Run in Postman](https://run.pstmn.io/button.svg)]()
 
